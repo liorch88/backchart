@@ -2,7 +2,7 @@
   "name": "backchart",
   "version": "0.2.1",
   "homepage": "https://github.com/liorch88/backchart",
-  "authors": [:w
+  "authors": [
     "Xu Chenhui <xu.chenhui@live.com>"
   ],
   "description": "A chart library based on backbone",
