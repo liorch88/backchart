@@ -1,0 +1,10 @@
+{
+    "name" : "backchart",
+    "mixins" : {
+        "backchart" : {
+            "scripts" : [
+                "dist/backchart.amcharts.js"
+                ]
+        }
+    }
+}
