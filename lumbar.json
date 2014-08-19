@@ -3,7 +3,7 @@
     "mixins" : {
         "backchart" : {
             "scripts" : [
-                "dist/backchart.amcharts.js"
+                "dist/browser/backchart.amcharts.js"
                 ]
         }
     }
