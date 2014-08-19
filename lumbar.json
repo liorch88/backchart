@@ -1,5 +1,5 @@
 {
-    "name" : "backchart",
+    "name" : "backchart-amcharts",
     "mixins" : {
         "backchart" : {
             "scripts" : [
