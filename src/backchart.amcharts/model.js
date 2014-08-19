@@ -11,7 +11,7 @@
 		define(['jquery','../backchart.base/model'], function($, base) {
 			return factory($, base);
 		});
-	}else if(typeof module !== 'undefined' && module.exports){
+	}else if(typeof module !== 'undefined' && module.exports && typeof require === 'function'){
 		var $ = require("jquery"),
 		base = require("../backchart.base/model");
 		module.exports = factory($, base);

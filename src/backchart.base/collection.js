@@ -14,7 +14,7 @@
                function($, _,  Backbone,  loader) {
                    return factory($, _, Backbone, loader);
                });
-    }else if(typeof module !== 'undefined' && module.exports){
+    }else if(typeof module !== 'undefined' && module.exports && typeof require === 'function'){
         var $ = require("jquery"),
         Backbone = require("backbone"),
         _ = require("underscore");

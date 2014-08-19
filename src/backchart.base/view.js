@@ -11,7 +11,7 @@
 		define(['jquery','backbone',"underscore"], function($, Backbone, _) {
 			return factory($, Backbone, _);
 		});
-	}else if (typeof module !== 'undefined' && module.exports){
+	}else if (typeof module !== 'undefined' && module.exports && typeof require === 'function'){
 		var $ = require("jquery"),
 		_ = require("underscore"),
 		Backbone = require("backbone");

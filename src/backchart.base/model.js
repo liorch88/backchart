@@ -11,7 +11,7 @@
 		define(['jquery','backbone'], function($, Backbone) {
 			return factory($, Backbone);
 		});
-	}else if(typeof module !== 'undefined' && module.exports){
+	}else if(typeof module !== 'undefined' && module.exports && typeof require === 'function'){
 		var $ = require("jquery"),
 		Backbone = require("backbone");
 		module.exports = factory($, Backbone);

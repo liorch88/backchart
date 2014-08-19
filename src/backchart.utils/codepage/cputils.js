@@ -4,7 +4,7 @@
         define(['backchart.utils/codepage/cptable'], function(cptable){
             return factory(cptable);
         });        
-    }else if (typeof module !== 'undefined' && module.exports){
+    }else if (typeof module !== 'undefined' && module.exports && typeof require === 'function'){
         var cpt = require('./cptable');
         module.exports = factory(cpt);
     }else{

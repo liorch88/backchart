@@ -13,7 +13,7 @@
             echarts = echarts || window.echarts;
             return factory($, Backbone, _, base, echarts, logger);
         });
-    }else if(typeof module !== 'undefined' && module.exports){
+    }else if(typeof module !== 'undefined' && module.exports && typeof require === 'function'){
         var $ = require("jquery"),
         base = require("../backchart.base/view"),
         Backbone = require("backbone"),

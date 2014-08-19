@@ -12,7 +12,7 @@
         define(function(){
             return factory();
         });
-    }else if (typeof module !== 'undefined' && module.exports){
+    }else if (typeof module !== 'undefined' && module.exports && typeof require === 'function'){
         module.exports = factory();
     }else{
         var namespaces = name.split("."),
@@ -31,7 +31,7 @@
         var args = [];
         if (typeof define === 'function' && define.amd) {
             require(name instanceof Array ? name : [name], callback);
-        }else if (typeof module !== 'undefined' && module.exports){
+        }else if (typeof module !== 'undefined' && module.exports && typeof require === 'function'){
             if (name instanceof Array){
                 for (var i=0; i<name.length ; i++){
                     args.push(require(name[i]));

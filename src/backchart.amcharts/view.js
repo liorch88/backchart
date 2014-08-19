@@ -12,7 +12,7 @@
 			amcharts = amcharts || window.AmCharts;
 			return factory($, Backbone, _, base, amcharts, logger);
 		});
-	}else if(typeof module !== 'undefined' && module.exports){
+	}else if(typeof module !== 'undefined' && module.exports && typeof require === 'function'){
 		var $ = require("jquery"),
 		base = require("../backchart.base/view"),
 		Backbone = require("backbone"),

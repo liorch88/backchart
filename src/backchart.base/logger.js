@@ -11,7 +11,7 @@
 		define(function() {
 			return factory();
 		});
-	}else if (typeof module !== 'undefined' && module.exports){
+	}else if (typeof module !== 'undefined' && module.exports && typeof require === 'function'){
 		module.exports = factory();
 	}else{
 		var namespaces = name.split("."),

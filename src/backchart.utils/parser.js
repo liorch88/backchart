@@ -17,7 +17,7 @@
                function($) {
                    return factory($, $.csv, root.XLS, root.XLSX);
                });
-    }else if (typeof module !== 'undefined' && module.exports){
+    }else if (typeof module !== 'undefined' && module.exports && typeof require === 'function'){
         var $ = require("jquery");
         require("backchart.utils/codepage/cputils");
         //root.JSZip = requires("./jszip/jszip.js");
