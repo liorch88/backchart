@@ -32,12 +32,13 @@
                     (root.jQuery || window.jQuery),
             (root._|| window._),
             (root.Backbone || window.Backbone),
+            (root.Application || window.Application || root.Backbone || window.Backbone),
             root.backchart.base.loader
             ):
                 (ex || {});
         }
     }
-}(this, "backchart.base.collection",function($, _,Backbone, loader) { 
+}(this, "backchart.base.collection",function($, _,Backbone,Application, loader) { 
     var root = this;
     /**
      * Backbone chart base collection 
@@ -46,7 +47,7 @@
      * @requires backbone
      * @this {Backbone.Collection}
      */
-    var exports = Backbone.Collection.extend(
+    var exports = Application.Collection.extend(
         /** 
          * @lends module:base/collection.prototype 
          */
@@ -143,7 +144,7 @@
                 };
                 return _bkAjax.call(Backbone.$, options);
             };
-            Backbone.Collection.apply(this, arguments);
+            Application.Collection.apply(this, arguments);
         },
         /**
          * Override the default sync.
@@ -157,14 +158,14 @@
         },
         /**
          * initialize
-         * @return {Backbone.Collection} collection instance
+         * @return {Application.Collection} collection instance
          */
         initialize: function(){
             this._silence = false;
             //The model options
             this._modelOptions = {};
 
-            return Backbone.Collection.prototype.initialize.apply(this, arguments);
+            return Application.Collection.prototype.initialize.apply(this, arguments);
         },
         /**
          * Set the silence flag.If you want to set lots of data to append, you can set it to true for ban the collection creating seted, removed and reseted event.If you set the flag to true, please recover the flag to false after you finished your work.

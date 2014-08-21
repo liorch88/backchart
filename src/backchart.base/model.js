@@ -25,12 +25,13 @@
 			scope = scope[p] = (i === namespaces.length - 1) ?
 				factory(
 					(root.jQuery || window.jQuery), 
-				    (root.Backbone || window.Backbone)
+				    (root.Backbone || window.Backbone),
+                                    (root.Application || window.Application || root.Backbone || window.Backbone)
 				):
 				(ex || {});
 		}
 	}
-}(this, "backchart.base.model", function($, Backbone) {
+}(this, "backchart.base.model", function($, Backbone, Application) {
 	/**
 	* Backbone chart base model
 	* @module base/model
@@ -38,7 +39,7 @@
 	* @requires backbone
 	* @this {Backbone.Model}
 	*/                     
-	var chartBaseModel = Backbone.Model.extend(
+	var chartBaseModel = Application.Model.extend(
 		/** @lends module:base/model.prototype */
 		{});
 	return chartBaseModel;

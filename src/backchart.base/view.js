@@ -27,12 +27,13 @@
 				factory(
 					(root.jQuery || window.jQuery),
 					(root.Backbone || window.Backbone),
-					(root._ || window._)
+					(root._ || window._),
+                                        (root.Application || window.Application || root.Backbone || window.Backbone)
 				):
 				(ex || {});
 		}
 	}
-}(this, "backchart.base.view", function($, Backbone, _) {
+}(this, "backchart.base.view", function($, Backbone, _, Application) {
     /**
 	 * Backbone chart base view
 	 * @module base/view
@@ -40,7 +41,7 @@
 	 * @requires backbone
      * @this {Backbone.View}
      */
-	var chartBaseView = Backbone.View.extend(
+	var chartBaseView = Application.View.extend(
 		/** 
 		* @lends module:base/view.prototype 
 		*/
@@ -103,7 +104,7 @@
 		 * Collection is visible or not
 		 *
 		 * @private
-		 * @param  {(string|backchart.base.collection|Backbone.Collection)} bindIdOrCollection
+		 * @param  {(string|backchart.base.collection|Application.Collection)} bindIdOrCollection
 		 *    If it's a string ,will hide the graph that the bind ID correspond with.
 		 *    If it's a Collection instance, will hide all graphs rendered by this data source.
 		 * @return {backchart.base.view} this instance
@@ -115,7 +116,7 @@
 				if (bc){
 					bc.visible = visible;
 				}
-			}else if (bindIdOrCollection instanceof Backbone.Collection){
+			}else if (bindIdOrCollection instanceof Application.Collection){
 				me.eachCollection(function(uid, collection, rdOptions, options){
 					if (collection === bindIdOrCollection){
 						options.visible = visible;
@@ -127,7 +128,7 @@
 		},
 		/**
 		 * Hide a set of data graph
-		 * @param  {(string|backchart.base.collection|Backbone.Collection)} bindIdOrCollection
+		 * @param  {(string|backchart.base.collection|Application.Collection)} bindIdOrCollection
 		 * @return {backchart.base.view} this instance
 		 */
 		hide: function(bindIdOrCollection){
@@ -135,7 +136,7 @@
 		},
 		/**
 		 * Show a set of data points
-		 * @param  {(string|backchart.base.collection|Backbone.Collection)} bindIdOrCollection
+		 * @param  {(string|backchart.base.collection|Application.Collection)} bindIdOrCollection
 		 * @return {backchart.base.view} this instance
 		 */
 		show: function(bindIdOrCollection){
@@ -143,7 +144,7 @@
 		},
 		/**
 		 * Check a graph visible status
-		 * @param  {(string|backchart.base.collection|Backbone.Collection)} bindIdOrCollection
+		 * @param  {(string|backchart.base.collection|Application.Collection)} bindIdOrCollection
 		 * @return {boolean}
 		 */
 		isVisibled: function(bindIdOrCollection){
@@ -151,7 +152,7 @@
 			if (typeof bindIdOrCollection=== "string" || bindIdOrCollection instanceof String){
 				var bc = me._collectionOptions[bindIdOrCollection];
 				return bc ? bc.visible : false;
-			}else if (bindIdOrCollection instanceof Backbone.Collection){
+			}else if (bindIdOrCollection instanceof Application.Collection){
 				var Options = {};
 				me.eachCollection(function(uid, collection, renderOption, options){
 					if (collection === bindIdOrCollection){
@@ -212,7 +213,7 @@
          *
 		 * @protected
          * @param {string} unid
-		 * @param  {(backchart.base.collection|Backbone.Collection)} collection
+		 * @param  {(backchart.base.collection|Application.Collection)} collection
          * @param {Object} options
          */
 		_bindCollectionEvent: function(unid, collection, options){
@@ -228,7 +229,7 @@
          *
 		 * @protected
          * @param {string} unid
-		 * @param  {(backchart.base.collection|Backbone.Collection)} collection
+		 * @param  {(backchart.base.collection|Application.Collection)} collection
          */
 		_unbindColletionEvent: function(unid, collection){
 			this.__ubce(unid, 
@@ -238,7 +239,7 @@
         /**
          * Determine whether an collection has be listened to
          *
-		 * @param  {(backchart.base.collection|Backbone.Collection)} collection
+		 * @param  {(backchart.base.collection|Application.Collection)} collection
          * @return {boolean}
          */
 		_collectionHasBind: function(collection){
@@ -256,7 +257,7 @@
 		 * Otherwise, the following events will be listend to.
 		 * 'set','add','change','destroy','reset','sort'
 		 *
-		 * @param {(backchart.base.collection|Backbone.Collection)} collection
+		 * @param {(backchart.base.collection|Application.Collection)} collection
 		 * @param {Object} renderOptions render chart options which based what chart library you used.
 		 * @param {Object} options
 		 * @param {string} [options.bid] a unique id as the bind ID
@@ -271,7 +272,7 @@
 			var me = this,
 			unid =	options.bid || _.uniqueId(me._collectionPrefix);
 
-			if (!collection instanceof Backbone.Collection){
+			if (!collection instanceof Application.Collection){
 				return;
 			}	    
 			//bind collection
@@ -293,7 +294,7 @@
 		/**
 		 * Bind one or more collections
          *
-		 * @param {(backchart.base.collection[]|Backbone.Collection[])} collections
+		 * @param {(backchart.base.collection[]|Application.Collection[])} collections
          * @param {Object} renderOptions same as onCollection
          * @param {Object} options same as onCollection
 		 * @return {Object} The key of this return is the collection instance and the value is the bind ID assigned.
@@ -311,8 +312,8 @@
 		},
 		/**
 		 * Remove one collection from the view
-		 * @param {(string|backchart.base.collection|Backbone.Collection)} unid pass the bind ID or collection instance in here.If convey a collection instance to, we will remove all bind configure about this collection.
-		 * @return {(backchart.base.collection|Backbone.Collection)} the collection instance or null
+		 * @param {(string|backchart.base.collection|Application.Collection)} unid pass the bind ID or collection instance in here.If convey a collection instance to, we will remove all bind configure about this collection.
+		 * @return {(backchart.base.collection|Application.Collection)} the collection instance or null
 		 */
 		unCollection: function(unid){
 			var me = this,
@@ -335,7 +336,7 @@
 					me.trigger("collection.off", unid, collection, _rdOptions, _options);
 				}
 				return collection;
-			}else if (unid instanceof Backbone.Collection){
+			}else if (unid instanceof Application.Collection){
 				var removeUnids = [];
 				collection = unid;
 				for(var uid in me.collections){
@@ -377,7 +378,7 @@
 		* The callback of eachCollection
 		* @callback eachCallback
 		* @param {string} bid the bind ID
-		* @param {(backchart.base.collection|Backbone.Collection)} collection the collection instance
+		* @param {(backchart.base.collection|Application.Collection)} collection the collection instance
 		* @param {Object} renderOptions same as onCollection
         * @param {Object} options same as onCollection
 		*/
@@ -386,10 +387,10 @@
 		 * Get collections by bind ID or get bind IDs by collection
 		 *   If it's Boolean type and false, will return a Array contained all collections binded in this view
 		 *   If it's String type ,will return the representative collection.
-		 *   If it's a instance of Backbone.Collection, will return a Array contained all bind IDs
+		 *   If it's a instance of Application.Collection, will return a Array contained all bind IDs
 		 *   else return a map ,key is collections ,values is uid array corresponded
-		 * @param {(boolean|string|backchart.base.collection|Backbone.Collection)} bindIDOrCollection 
-		 * @return {(backchart.base.collection[]|Backbone.Collection[]|backchart.base.collection|Backbone.Collection|string[]|Object)}
+		 * @param {(boolean|string|backchart.base.collection|Application.Collection)} bindIDOrCollection 
+		 * @return {(backchart.base.collection[]|Application.Collection[]|backchart.base.collection|Application.Collection|string[]|Object)}
 		 */
 		getCollection: function(getBindID){
 			var me = this;
@@ -397,7 +398,7 @@
 				return _.uniq(_.values(me.collections));
 			}else if (typeof getBindID === "string" || getBindID instanceof String){
 				return me.collections[getBindID];
-			}else if (getBindID instanceof Backbone.Collection){
+			}else if (getBindID instanceof Application.Collection){
 				var uids = [];
 				me.eachCollection(function(uid){
 					if (this === getBindID){
@@ -419,9 +420,9 @@
 		/**
 		 * Get collection's option by bind ID or collection instance
 		 *   If it's String type ,will return the representative collection's options.
-		 *   If it's a instance of Backbone.Collection, will return a Array contained all options
+		 *   If it's a instance of Application.Collection, will return a Array contained all options
 		 *   else return a map ,key is collection instance ,values is its options
-		 * @param {(string|backchart.base.collection|Backbone.Collection)} bindIDOrCollection 
+		 * @param {(string|backchart.base.collection|Application.Collection)} bindIDOrCollection 
 		 * @return {(Object[]|Object)}
 		 */
 
@@ -430,7 +431,7 @@
 			Options = null;
 			if (typeof getBindID === "string" || getBindID instanceof String){
 				return me._collectionOptions[getBindID];
-			}else if (getBindID instanceof Backbone.Collection){
+			}else if (getBindID instanceof Application.Collection){
 				Options = [];
 				me.eachCollection(function(uid, collection, renderOption, options){
 					if (collection === getBindID){
@@ -452,9 +453,9 @@
 		/**
 		 * Get collection's renderOptions by bind ID or collection instance
 		 *   If it's String type ,will return the representative collection's options.
-		 *   If it's a instance of Backbone.Collection, will return a Array contained all options
+		 *   If it's a instance of Application.Collection, will return a Array contained all options
 		 *   else return a map ,key is collection instance ,values is its options
-		 * @param {(string|backchart.base.collection|Backbone.Collection)} bindIDOrCollection 
+		 * @param {(string|backchart.base.collection|Application.Collection)} bindIDOrCollection 
 		 * @return {(Object[]|Object)}
 		 */
 		getRenderOptions : function(getBindID){
@@ -462,7 +463,7 @@
 			renderOptions = [];
 			if (typeof getBindID === "string" || getBindID instanceof String){
 				return me._collectionRenderOptions[getBindID];
-			}else if (getBindID instanceof Backbone.Collection){
+			}else if (getBindID instanceof Application.Collection){
 				renderOptions = [];
 				me.eachCollection(function(uid, collection, renderOption){
 					if (collection === getBindID){
