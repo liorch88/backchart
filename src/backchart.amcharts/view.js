@@ -245,7 +245,6 @@
                     }
                 }
 
-				var coverDateFormat = false;
 				collection.each(function(model){
 					if (collection.isVisibled(model)){
 						var _d = _.clone(model.attributes);
@@ -257,19 +256,6 @@
                             }   
                         }
                         
-						if (renderOptions.type === "serial" && (model.dataDateFormat || renderOptions.dataDateFormat)){
-							if (!renderOptions.categoryAxis || typeof renderOptions.categoryAxis.parseDates === "undefined"){
-								console.warn("One model's category field is Date Object, but not set categoryAxis.parseDates");
-							}else{
-								var dataDateFormat = model.dataDateFormat || renderOptions.dataDateFormat;
-                                if (typeof _d[keyFields[0]] === "undefined"){
-                                    //console.warn("One model's categoryField is undefined!!");
-                                    return;
-                                }
-								_d[keyFields[0]] = AmCharts.stringToDate(_d[keyFields[0]], dataDateFormat);
-                                coverDateFormat = true;
-							}
-						}
 				    	_data.push(_d);
 					}
 				});
@@ -281,13 +267,6 @@
                     graphFields = me.__mergeToDataProvider(keyFields[0], _data, dataProvider, graphFields);
                 }
                 _gph = $.extend(_gph, graphFields);
-
-				/**
-				 * We already cover the date
-				 */
-				if (coverDateFormat){
-                    renderOptions.categoryAxis = $.extend(true, {}, renderOptions.categoryAxis, me.defaultDateAxesOptions);
-				}
 
 				if (renderOption.axes){
 					if (me.multiValueAxes === true){
