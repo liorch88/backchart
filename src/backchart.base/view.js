@@ -185,6 +185,15 @@
 			this.on("collection.off", function(){
 				me.render(true);
 			});
+
+			// When a custom event named "destroyed" is fired, clear the collection and chart
+			this.on("destroyed", function () {
+				me.clearCollection();
+
+				if (me.Chart) {
+					me.Chart.clear();
+				}
+			});
 		},
 		__bce: function(unid, evearr, collection){
 			var me = this;

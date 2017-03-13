@@ -330,6 +330,10 @@
 			    me.trigger("beforeRender", me, me.el.id, renderOptions);
 			    me.$container.empty().append(me.$el.empty());
 			    me.elFillParents();
+				if (me.Chart) {
+					// Clear previous chart before overriding the reference
+					me.Chart.clear();
+				}
 			    me.Chart = AmCharts.makeChart(me.el.id, $.extend(true, {}, renderOptions));
                 me.Chart.write(me.el.id);
 			    return baseview.prototype.renderAfter.apply(me, [me, me.el, me.Chart, renderOptions]);
